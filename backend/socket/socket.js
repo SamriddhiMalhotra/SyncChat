@@ -25,7 +25,6 @@ io.on("connection", (socket) => {
     userSocketMap[userId] = socket.id
     //userId:socketid
   }
-  console.log("SOCKET CONNECTED:", socket.id, "USER:", userId)
 
   io.emit("getOnlineUsers", Object.keys(userSocketMap))
 
@@ -36,7 +35,6 @@ io.on("connection", (socket) => {
 
   //TYPING 
   socket.on("typing", ({ receiverId, senderId }) => {
-    console.log("TYPING EVENT:", { receiverId, senderId })
 
     if (!receiverId || !senderId) return;
     const receiverSocketId = getReceiverSocketId(receiverId)
@@ -47,7 +45,6 @@ io.on("connection", (socket) => {
   })
 //AND STOP TYPING
   socket.on("stopTyping", ({ receiverId, senderId }) => {
-    console.log("STOP TYPING EVENT:", { receiverId, senderId })
     if (!receiverId || !senderId) return;
     const receiverSocketId = getReceiverSocketId(receiverId)
 
