@@ -28,13 +28,21 @@ useEffect(() => {
       }
     })
 
-    socketio.on("connect", () => {
-      console.log("SOCKET CONNECTED:", socketio.id)
-    })
+ socketio.on("connect", () => {
+  console.log("SOCKET CONNECTED:", socketio.id)
+})
 
-    socketio.on("connect_error", (error) => {
-      console.log("SOCKET CONNECTION ERROR:", error)
-    })
+socketio.on("disconnect", (reason) => {
+  console.log("SOCKET DISCONNECTED:", reason)
+})
+
+socketio.on("reconnect", (attempt) => {
+  console.log("SOCKET RECONNECTED:", attempt)
+})
+
+socketio.on("connect_error", (error) => {
+  console.log("SOCKET CONNECTION ERROR:", error)
+})
 
    dispatch(setSocket(socketio))
 
