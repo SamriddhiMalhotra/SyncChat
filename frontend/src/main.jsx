@@ -13,6 +13,6 @@ createRoot(document.getElementById('root')).render(
  </BrowserRouter>
 )
 
-export const serverUrl="http://localhost:8000"
+export const serverUrl="https://syncchat-backend-gmjm.onrender.com"
 
 
