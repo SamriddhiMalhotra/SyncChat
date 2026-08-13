@@ -15,7 +15,7 @@ dns.setServers(["1.1.1.1","8.8.8.8"])
 const port=process.env.PORT || 5000
 
 app.use(cors({
-  origin:"http://localhost:5174",
+  origin:"https://syncchat-frontend-vggb.onrender.com",
   credentials:true
 }))
 app.use(express.json())
