@@ -20,13 +20,21 @@ function App() {
   let dispatch=useDispatch()
 
   //socket.io getting connected to backend
-  useEffect(()=>{
-    if(userData){
-      const socketio=io(`${serverUrl}`,{
-    query:{
-      userId:userData?._id
-    }
-   }) 
+useEffect(() => {
+  if (userData) {
+    const socketio = io(serverUrl, {
+      query: {
+        userId: userData?._id
+      }
+    })
+
+    socketio.on("connect", () => {
+      console.log("SOCKET CONNECTED:", socketio.id)
+    })
+
+    socketio.on("connect_error", (error) => {
+      console.log("SOCKET CONNECTION ERROR:", error)
+    })
 
    dispatch(setSocket(socketio))
 
