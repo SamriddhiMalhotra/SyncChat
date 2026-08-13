@@ -9,7 +9,7 @@ const httpserver = http.createServer(app)
 //socket.io server
 const io = new Server(httpserver, {
   cors: {
-    origin: "http://localhost:5174"
+    origin: "https://syncchat-frontend-vggb.onrender.com"
   }
 })
 
