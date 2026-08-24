@@ -1,36 +1,33 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASS,
-  },
-});
-
-transporter.verify()
-  .then(() => {
-    console.log("Gmail SMTP connection successful");
-  })
-  .catch((error) => {
-    console.error("Gmail SMTP connection failed:", error);
-  });
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export const sendOtpMail = async (to, otp) => {
-  await transporter.sendMail({
-    from: `"Samriddhi Malhotra" <${process.env.EMAIL}>`,
-    to,
-    subject: "SyncChat - Email Verification OTP",
-    html: `
-      <h3>SyncChat Email Verification</h3>
-      <p>Your OTP is <b>${otp}</b>.</p>
-      <p>This OTP expires in 5 minutes.</p>
-    `,
-  });
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "SyncChat <onboarding@resend.dev>",
+      to: [to],
+      subject: "SyncChat - Email Verification OTP",
+      html: `
+        <h3>SyncChat Email Verification</h3>
+        <p>Your OTP is <b>${otp}</b>.</p>
+        <p>This OTP expires in 5 minutes.</p>
+      `,
+    });
+
+    if (error) {
+      console.error("RESEND ERROR:", error);
+      throw new Error(error.message);
+    }
+
+    console.log("OTP email sent successfully:", data);
+
+    return data;
+  } catch (error) {
+    console.error("SEND OTP EMAIL ERROR:", error);
+    throw error;
+  }
 };
