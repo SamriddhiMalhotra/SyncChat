@@ -7,19 +7,19 @@ SyncChat is a real-time 1-to-1 chat application built with the MERN stack and So
 ## 📸 Screenshots
 
 ### Chat Interface
-![Chat Interface](chat.png)
+![Chat Interface](chat)
 
 ### 🔍 User Search
-![User Search](search.png)
+![User Search](search)
 
 ### 🔐 Sign Up
-![Sign Up](signup.png)
+![Sign Up](signup)
 
 ### 📧 OTP Verification
-![OTP Verification](otp.png)
+![OTP Verification](otp)
 
 ### 👤 Profile
-![Profile](profile.png)
+![Profile](profile)
 
 
 ## ✨ Features
