@@ -1,15 +1,30 @@
-import { Resend } from "resend";
+import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  port: 465,
+  secure: true,
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASS,
+  },
+});
+
+transporter
+  .verify()
+  .then(() => console.log("Gmail SMTP connection successful"))
+  .catch((error) =>
+    console.error("Gmail SMTP connection failed:", error)
+  );
 
 export const sendOtpMail = async (to, otp) => {
   try {
-    const { data, error } = await resend.emails.send({
-      from: "SyncChat <onboarding@resend.dev>",
-      to: [to],
+    const info = await transporter.sendMail({
+      from: `"SyncChat" <${process.env.EMAIL}>`,
+      to: to,
       subject: "SyncChat - Email Verification OTP",
       html: `
         <h3>SyncChat Email Verification</h3>
@@ -18,14 +33,9 @@ export const sendOtpMail = async (to, otp) => {
       `,
     });
 
-    if (error) {
-      console.error("RESEND ERROR:", error);
-      throw new Error(error.message);
-    }
+    console.log("OTP email sent successfully:", info.messageId);
 
-    console.log("OTP email sent successfully:", data);
-
-    return data;
+    return info;
   } catch (error) {
     console.error("SEND OTP EMAIL ERROR:", error);
     throw error;
