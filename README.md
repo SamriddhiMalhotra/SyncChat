@@ -4,6 +4,8 @@ SyncChat is a real-time 1-to-1 chat application built with the MERN stack and So
 ## 🚀 Live Demo
 [🌐 Live Demo](https://syncchat-frontend-vggb.onrender.com/) · [💻 GitHub Repository](https://github.com/SamriddhiMalhotra/SyncChat)
 
+> **Demo Note:** Due to Resend's free-tier email restrictions, OTP delivery is currently limited to the configured demo email address. Please refer to the screenshots for the complete application experience.
+
 ## 📸 Screenshots
 
 ### Chat Interface
